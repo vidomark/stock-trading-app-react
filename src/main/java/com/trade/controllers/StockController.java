@@ -1,8 +1,10 @@
 package com.trade.controllers;
 
+import com.trade.models.StockAPIService;
 import com.trade.models.Stock;
+import org.json.JSONObject;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.MultiValueMap;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -31,9 +35,16 @@ public class StockController {
 
     @CrossOrigin("*")
     @GetMapping("/")
-    public String index(@RequestParam Map<String,String> requestParams) {
+    public Stock index(@RequestParam Map<String,String> requestParams) throws IOException {
+        String symbol = requestParams.get("symbol");
+        String price = requestParams.get("price");
 
-        return "Hello World";
+        StockAPIService stockAPIService = new StockAPIService(symbol, price);
+        JSONObject json = stockAPIService.fetchStockData();
+        HashMap<String, String> data = stockAPIService.getData(json);
+
+        Stock stock = new Stock(data);
+        return stock;
     }
 
 }
