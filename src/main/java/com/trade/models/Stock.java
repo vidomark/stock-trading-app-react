@@ -1,18 +1,21 @@
 package com.trade.models;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 
+@Component
 public class Stock {
 
     private String symbol;
     private double price;
 
-    public Stock(HashMap data) {
-        String stockSymbol = data.get("symbol").toString();
+    public Stock() {
+        /*String stockSymbol = data.get("symbol").toString();
         double stockPrice = Double.valueOf(data.get("price").toString());
 
         this.symbol = stockSymbol;
-        this.price = stockPrice;
+        this.price = stockPrice;*/
     }
 
     public String getSymbol() {
