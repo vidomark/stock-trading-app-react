@@ -1,6 +1,6 @@
 package com.trade.controllers;
 
-import com.trade.models.Stock;
+import com.trade.models.Logger;
 import com.trade.models.StockAPIService;
 import com.trade.models.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -21,9 +22,9 @@ import java.util.Map;
 public class StockController {
 
     @Autowired
-    Stock stock;
-    @Autowired
     StockAPIService stockAPIService;
+    @Autowired
+    Logger logger;
 
     @Configuration
     @EnableWebMvc
@@ -37,14 +38,24 @@ public class StockController {
 
     @CrossOrigin("*")
     @GetMapping("/")
-    public Stock index(@RequestParam Map<String,String> requestParams) throws IOException {
+    public HashMap index(@RequestParam Map<String,String> requestParams) throws IOException {
         String symbol = requestParams.get("symbol");
-        Double price = Double.parseDouble(requestParams.get("price"));
+        Double bid = Double.parseDouble(requestParams.get("price"));
         Trader trader = new Trader(stockAPIService);
+        HashMap<String, String> response = new HashMap();
+        String message;
 
-        boolean purchased = trader.buy(symbol, price);
+        boolean purchased = trader.buy(symbol, bid);
+        double price = stockAPIService.getPrice(symbol);
 
-        return stock;
+        if (purchased) message = "\"Purchased \" + symbol + \" stock at $\" + bid + \", since its higher that the current price ($\" + price + \")\"";
+        else message = "Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.";
+
+        response.put("price", String.valueOf(price));
+        response.put("symbol", symbol);
+        response.put("message", message);
+
+        return response;
     }
 
 }

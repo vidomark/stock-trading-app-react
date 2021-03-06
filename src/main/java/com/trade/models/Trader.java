@@ -8,10 +8,10 @@ import java.io.IOException;
 @Component
 public class Trader {
 
+    @Autowired
     private final StockAPIService stockAPIService;
 
     public Trader(StockAPIService stockAPIService) {
-
         this.stockAPIService = stockAPIService;
     }
 
@@ -24,10 +24,8 @@ public class Trader {
         if (price <= bid) {
             result = true;
             stockAPIService.buy();
-            //logger.log("Purchased " + symbol + " stock at $" + bid + ", since its higher that the current price ($" + price + ")");
         }
         else {
-            //logger.log("Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.");
             result = false;
         }
         return result;
