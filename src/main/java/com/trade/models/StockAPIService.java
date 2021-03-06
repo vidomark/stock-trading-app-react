@@ -1,39 +1,35 @@
 package com.trade.models;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
 
+@Component
 public class StockAPIService {
 
-    private String symbol;
-    private String price;
-    private String API_PATH = "https://run.mocky.io/v3/9e14e086-84c2-4f98-9e36-54928830c980?stock=%s";
+    @Autowired
     private final RemoteURLReader remoteURLReader;
-    private HashMap<String, String> data = new HashMap();
+    private final String API_PATH = "https://run.mocky.io/v3/9e14e086-84c2-4f98-9e36-54928830c980?stock=%s";
 
-    public StockAPIService(String symbol, String price) {
-        this.symbol = symbol;
-        this. price = price;
-        remoteURLReader = new RemoteURLReader();
+    public StockAPIService(RemoteURLReader remoteURLReader) {
+        super();
+        this.remoteURLReader = remoteURLReader;
     }
 
-    public JSONObject fetchStockData() throws IOException {
+    public Double getPrice(String symbol) throws IOException {
         String url = String.format(API_PATH, symbol);
         String result = remoteURLReader.readFromUrl(url);
         JSONObject json = new JSONObject(result);
-        return json;
+        String price = json.get("price").toString();
+        return Double.parseDouble(price);
     }
 
-    public HashMap getData(JSONObject json) {
-        String symbol = json.get("symbol").toString();
-        String price =  json.get("price").toString();
-
-        data.put("symbol", symbol);
-        data.put("price", price);
-
-        return data;
+    /** Buys a share of the given stock at the current price. Returns false if the purchase fails */
+    public boolean buy() {
+        // Stub. No need to implement this.
+        return true;
     }
 
 }
