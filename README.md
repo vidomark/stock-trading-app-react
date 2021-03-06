@@ -1,1 +1,1 @@
-The project is a react-spring rewrite of a stock trading program. The application requires a stock symbol and a price t ofetch data from a free API (https://run.mocky.io).
+The project is a react-spring rewrite of a stock trading program. The application requires a stock symbol and a price to fetch data from a free API (https://run.mocky.io). The application's back end uses spring boot framework which fetches the actual stock data and the front end which is based upon react, displays the fetched content with additional information.
