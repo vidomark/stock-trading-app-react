@@ -19,6 +19,7 @@ export default function InputField(props) {
   };
 
   const setStock = (data) => {
+    console.log(data);
     props.setStockData(data);
   };
 
