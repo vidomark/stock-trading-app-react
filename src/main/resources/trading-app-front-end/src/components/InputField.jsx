@@ -9,9 +9,11 @@ export default function InputField(props) {
 
   const fetchStockData = () => {
     setIsSubmitted(true);
+
     const symbol = stockSymbol;
     const price = stockPrice;
     const url = `http://localhost:8080/?symbol=${symbol}&price=${price}`;
+
     axios
       .get(url)
       .then((res) => setStock(res.data))
@@ -26,8 +28,12 @@ export default function InputField(props) {
     isSubmitted && fetchStockData();
   });
 
+  const style = {
+    opacity: 0.9,
+  };
+
   return (
-    <div>
+    <div className="m-5">
       <label htmlFor="">Enter a stock symbol (for example aapl)</label>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
@@ -38,6 +44,7 @@ export default function InputField(props) {
         <FormControl
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
+          style={style}
           onChange={(event) => {
             setStockSymbol(event.target.value);
           }}
@@ -54,6 +61,7 @@ export default function InputField(props) {
         <FormControl
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
+          style={style}
           onChange={(event) => {
             setStockPrice(event.target.value);
           }}
