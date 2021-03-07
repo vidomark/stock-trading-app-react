@@ -9,9 +9,11 @@ export default function InputField(props) {
 
   const fetchStockData = () => {
     setIsSubmitted(true);
+
     const symbol = stockSymbol;
     const price = stockPrice;
     const url = `http://localhost:8080/?symbol=${symbol}&price=${price}`;
+
     axios
       .get(url)
       .then((res) => setStock(res.data))
@@ -19,7 +21,6 @@ export default function InputField(props) {
   };
 
   const setStock = (data) => {
-    console.log(data);
     props.setStockData(data);
   };
 

@@ -1,6 +1,5 @@
 package com.trade.controllers;
 
-import com.trade.models.Logger;
 import com.trade.models.StockAPIService;
 import com.trade.models.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,8 @@ public class StockController {
 
     @Autowired
     StockAPIService stockAPIService;
-    @Autowired
-    Logger logger;
 
-    @Configuration
+   /* @Configuration
     @EnableWebMvc
     public class WebConfig extends WebMvcConfigurerAdapter {
         // this method allows cross origin requests
@@ -34,7 +31,7 @@ public class StockController {
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**");
         }
-    }
+    }*/
 
     @CrossOrigin("*")
     @GetMapping("/")
