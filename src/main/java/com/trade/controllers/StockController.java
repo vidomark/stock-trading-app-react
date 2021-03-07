@@ -23,16 +23,6 @@ public class StockController {
     @Autowired
     StockAPIService stockAPIService;
 
-   /* @Configuration
-    @EnableWebMvc
-    public class WebConfig extends WebMvcConfigurerAdapter {
-        // this method allows cross origin requests
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**");
-        }
-    }*/
-
     @CrossOrigin("*")
     @GetMapping("/")
     public HashMap index(@RequestParam Map<String,String> requestParams) throws IOException {
@@ -45,7 +35,7 @@ public class StockController {
         boolean purchased = trader.buy(symbol, bid);
         double price = stockAPIService.getPrice(symbol);
 
-        if (purchased) message = "\"Purchased \" + symbol + \" stock at $\" + bid + \", since its higher that the current price ($\" + price + \")\"";
+        if (purchased) message ="Purchased " + symbol + " stock at $" + bid + ", since its higher than the current price $" + price + ".";
         else message = "Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.";
 
         response.put("price", String.valueOf(price));
