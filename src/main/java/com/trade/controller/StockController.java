@@ -1,16 +1,13 @@
-package com.trade.controllers;
+package com.trade.controller;
 
-import com.trade.models.StockAPIService;
-import com.trade.models.Trader;
+import com.trade.model.Response;
+import com.trade.model.StockAPIService;
+import com.trade.model.Trader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,14 +19,14 @@ public class StockController {
 
     @Autowired
     StockAPIService stockAPIService;
+    @Autowired
+    Trader trader;
 
     @CrossOrigin("*")
     @GetMapping("/")
-    public HashMap index(@RequestParam Map<String,String> requestParams) throws IOException {
+    public Response index(@RequestParam Map<String,String> requestParams) throws IOException {
         String symbol = requestParams.get("symbol");
         Double bid = Double.parseDouble(requestParams.get("price"));
-        Trader trader = new Trader(stockAPIService);
-        HashMap<String, String> response = new HashMap();
         String message;
 
         boolean purchased = trader.buy(symbol, bid);
@@ -38,10 +35,7 @@ public class StockController {
         if (purchased) message ="Purchased " + symbol + " stock at $" + bid + ", since its higher than the current price $" + price + ".";
         else message = "Bid for " + symbol + " was $" + bid + " but the stock price is $" + price + ", no purchase was made.";
 
-        response.put("price", String.valueOf(price));
-        response.put("symbol", symbol);
-        response.put("message", message);
-
+        Response response = new Response(String.valueOf(price), symbol, message);
         return response;
     }
 

@@ -3,6 +3,8 @@ import Header from "./components/Header";
 import InputField from "./components/InputField";
 import StockResult from "./components/StockResult";
 import { useState } from "react";
+import backgroundImg from "./resources/backround.jpg";
+import FullHeight from "react-full-height";
 
 function App() {
   const [stock, setStock] = useState({});
@@ -12,11 +14,14 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <FullHeight
+      className="App"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <Header />
       <InputField setStockData={setStockData} />
       <StockResult stock={stock} />
-    </div>
+    </FullHeight>
   );
 }
 

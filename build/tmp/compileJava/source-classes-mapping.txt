@@ -1,12 +1,14 @@
-com/trade/models/RemoteURLReader.java
- com.trade.models.RemoteURLReader
-com/trade/models/StockAPIService.java
- com.trade.models.StockAPIService
 com/trade/configuration/WebConfig.java
  com.trade.configuration.WebConfig
 com/trade/Application.java
  com.trade.Application
-com/trade/models/Trader.java
- com.trade.models.Trader
-com/trade/controllers/StockController.java
- com.trade.controllers.StockController
+com/trade/model/StockAPIService.java
+ com.trade.model.StockAPIService
+com/trade/model/RemoteURLReader.java
+ com.trade.model.RemoteURLReader
+com/trade/model/Trader.java
+ com.trade.model.Trader
+com/trade/model/Response.java
+ com.trade.model.Response
+com/trade/controller/StockController.java
+ com.trade.controller.StockController

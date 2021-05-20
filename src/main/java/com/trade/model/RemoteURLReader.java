@@ -1,4 +1,4 @@
-package com.trade.models;
+package com.trade.model;
 
 import org.springframework.stereotype.Component;
 

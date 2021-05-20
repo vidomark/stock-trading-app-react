@@ -1,4 +1,4 @@
-package com.trade.models;
+package com.trade.model;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

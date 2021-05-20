@@ -1,4 +1,4 @@
-package com.trade.models;
+package com.trade.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,8 +19,8 @@ public class Trader {
      * 	@return whether any stock was bought */
     public boolean buy(String symbol, double bid) throws IOException {
         double price = stockAPIService.getPrice(symbol);
-
         boolean result;
+
         if (price <= bid) {
             result = true;
             stockAPIService.buy();
