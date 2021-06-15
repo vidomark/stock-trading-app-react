@@ -1,33 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { InputGroup, Button, FormControl } from "react-bootstrap";
 import axios from "axios";
 
 export default function InputField(props) {
   const [stockSymbol, setStockSymbol] = useState("");
   const [stockPrice, setStockPrice] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const fetchStockData = () => {
-    setIsSubmitted(true);
-
     const symbol = stockSymbol;
     const price = stockPrice;
     const url = `http://localhost:8080/?symbol=${symbol}&price=${price}`;
-
-    /* axios
-      .get(url)
-      .then((res) => setStock(res.data))
-      .then(setIsSubmitted(false)); */
-    axios.get(url).then((result) => console.log(result));
+    axios.get(url).then((result) => setStock(result.data));
   };
 
   const setStock = (data) => {
     props.setStockData(data);
   };
-
-  useEffect(() => {
-    isSubmitted && fetchStockData();
-  });
 
   const style = {
     opacity: 0.9,
@@ -35,13 +23,16 @@ export default function InputField(props) {
 
   return (
     <div className="m-5">
-      <label htmlFor="">Enter a stock symbol (for example aapl)</label>
+      <label className="input-label">
+        Enter a stock symbol (for example aapl)
+      </label>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <InputGroup.Text id="inputGroup-sizing-default">
             Symbol
           </InputGroup.Text>
         </InputGroup.Prepend>
+
         <FormControl
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
@@ -52,7 +43,9 @@ export default function InputField(props) {
         />
       </InputGroup>
 
-      <label htmlFor="">Enter the maximum price you are willing to pay</label>
+      <label className="input-label">
+        Enter the maximum price you are willing to pay
+      </label>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <InputGroup.Text id="inputGroup-sizing-default">

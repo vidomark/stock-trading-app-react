@@ -1,4 +1,5 @@
 import "./App.css";
+import "./css/style.css";
 import Header from "./components/Header";
 import InputField from "./components/InputField";
 import StockResult from "./components/StockResult";

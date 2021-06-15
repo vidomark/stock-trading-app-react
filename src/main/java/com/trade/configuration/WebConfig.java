@@ -10,9 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebConfig extends WebMvcConfigurerAdapter {
 
         // this method allows cross origin requests
+
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**");
         }
-
 }
